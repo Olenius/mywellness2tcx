@@ -94,10 +94,7 @@ function createXML(array $json, string $dateTime) : string {
 
         $trackPoint->appendChild($doc->createElement('DistanceMeters', $calculatedDist ?? ($sample['vs'][$keys['dst']] . '.0')));
         $trackPoint->appendChild($doc->createElement('Cadence',$sample['vs'][$keys['rpm']] . '.0'));
-        if (!empty($heartRates)) {
-            if (!isset($heartRates[$sample['t']])){
-                $heartRates[$sample['t']] = 0;
-            }
+        if (!empty($heartRates) && isset($heartRates[$sample['t']])) {
             $heartRateBpm = $doc->createElement('HeartRateBpm');
             $heartRateBpm->appendChild($doc->createElement('Value', $heartRates[$sample['t']]));
             $trackPoint->appendChild($heartRateBpm);
